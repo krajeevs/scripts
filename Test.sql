@@ -35,3 +35,30 @@ ORDER BY
     tab.name,
     trig.name;
 
+
+--Version 3
+
+SELECT
+    trig.name AS trigger_name,
+    tab.name AS table_name,
+    CASE
+        WHEN (trig.id = tab.deltrig AND (tab.sysstat2 & 2097152) <> 0)
+          OR (trig.id = tab.updtrig AND (tab.sysstat2 & 4194304) <> 0)
+          OR (trig.id = tab.instrig AND (tab.sysstat2 & 1048576) <> 0)
+        THEN 'Disabled'
+        ELSE 'Enabled'
+    END AS trigger_state
+FROM
+    sysobjects trig,
+    sysobjects tab
+WHERE
+    trig.type = 'TR'
+    AND (
+        trig.id = tab.deltrig
+        OR trig.id = tab.updtrig
+        OR trig.id = tab.instrig
+    )
+ORDER BY
+    tab.name,
+    trig.name
+
