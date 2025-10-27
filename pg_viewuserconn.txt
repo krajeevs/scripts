@@ -1,0 +1,3 @@
+SELECT (COUNT(*) * 100 / setting::int) 
+ FROM pg_stat_activity, pg_settings 
+ WHERE name='max_connections'
