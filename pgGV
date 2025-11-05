@@ -1,0 +1,8 @@
+CREATE TABLE dbo.GoldenPatchVersion
+(
+    VersionID INT IDENTITY(1,1) PRIMARY KEY,       -- Auto-incrementing ID
+    GoldenVersion NVARCHAR(100) NOT NULL,          -- Version name (e.g., PostgreSQL version)
+    Description NVARCHAR(255) NULL,                -- Optional description
+    CreateDate DATETIME NOT NULL DEFAULT GETDATE(),-- Date record was created
+    IsActive BIT NOT NULL DEFAULT 1                -- Active flag (1 = Active, 0 = Inactive)
+);
